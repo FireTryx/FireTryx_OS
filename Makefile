@@ -43,7 +43,6 @@ $(BUILD_DIR)/commands/%.o: $(SRC_DIR)/commands/%.c
 # Création de l'ISO
 iso: build-x86
 	mkdir -p $(ISO_DIR)/boot/grub
-	cp src/assets/logo.bmp $(ISO_DIR)/logo.bmp
 	cp $(KERNEL_BIN) $(ISO_DIR)/boot/kernel.bin
 	cp targets/iso/grub/grub.cfg $(ISO_DIR)/boot/grub/
 	grub-mkrescue -o $(ISO_FILE) $(ISO_DIR)
