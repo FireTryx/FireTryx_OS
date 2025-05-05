@@ -1,5 +1,6 @@
 #include "kernel.h"
 #include "io.h"
+#include "stdint.h"
 #include "string.h"
 
 int cursor_x = 0;
@@ -76,6 +77,32 @@ void print(const char *str) {
     while (*str) {
         put_char(*str++);
     }
+}
+
+void print_hex(uint32_t value) {
+    char hex_digits[] = "0123456789ABCDEF";
+    char buffer[9]; // 8 digits + null terminator
+    buffer[8] = '\0';
+
+    for (int i = 7; i >= 0; i--) {
+        buffer[i] = hex_digits[value & 0xF];
+        value >>= 4;
+    }
+
+    print(buffer);
+}
+
+void print_hex64(uint64_t value) {
+    char hex_digits[] = "0123456789ABCDEF";
+    char buffer[17]; // 16 digits + null terminator
+    buffer[16] = '\0';
+
+    for (int i = 15; i >= 0; i--) {
+        buffer[i] = hex_digits[value & 0xF];
+        value >>= 4;
+    }
+
+    print(buffer);
 }
 
 void kernel_prompt() {
